@@ -159,7 +159,8 @@ class Genshi(object):
         from the same places as Flask.
 
         """
-        path = loader.directory(os.path.join(self.app.root_path, 'templates'))
+        path = loader.directory(os.path.join(
+                self.app.root_path, self.app.template_folder))
         module_paths = {}
         modules = getattr(self.app, 'modules', {})
         for name, module in modules.iteritems():
