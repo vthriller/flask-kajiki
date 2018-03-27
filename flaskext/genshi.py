@@ -163,7 +163,7 @@ class Genshi(object):
                 self.app.root_path, self.app.template_folder))
         module_paths = {}
         modules = getattr(self.app, 'modules', {})
-        for name, module in modules.iteritems():
+        for name, module in modules.items():
             module_path = os.path.join(module.root_path, 'templates')
             if os.path.isdir(module_path):
                 module_paths[name] = loader.directory(module_path)
@@ -221,13 +221,13 @@ def generate_template(template=None, context=None,
     class_ = genshi.methods[method].get('class', MarkupTemplate)
 
     context = context or {}
-    for key, value in current_app.jinja_env.globals.iteritems():
+    for key, value in current_app.jinja_env.globals.items():
         context.setdefault(key, value)
     context.setdefault('filters', current_app.jinja_env.filters)
     context.setdefault('tests', current_app.jinja_env.tests)
-    for key, value in current_app.jinja_env.filters.iteritems():
+    for key, value in current_app.jinja_env.filters.items():
         context.setdefault(key, value)
-    for key, value in current_app.jinja_env.tests.iteritems():
+    for key, value in current_app.jinja_env.tests.items():
         context.setdefault('is%s' % key, value)
     current_app.update_template_context(context)
 
