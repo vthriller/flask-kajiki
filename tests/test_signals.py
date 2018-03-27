@@ -18,13 +18,13 @@ def captured_templates(app):
 
 
 def test_signals_are_emitted(app, context):
-  with app.test_request_context():
-    """Signal is emitted when templates are generated"""
+    with app.test_request_context():
+        """Signal is emitted when templates are generated"""
 
-    app = current_app._get_current_object()
-    with captured_templates(app) as templates:
-        render_template('test.html', context)
+        app = current_app._get_current_object()
+        with captured_templates(app) as templates:
+            render_template('test.html', context)
 
-    assert templates.__len__() == 1
-    assert templates[0][0].filename == 'test.html'
-    assert templates[0][1]['name'] == 'Rudolf'
+        assert templates.__len__() == 1
+        assert templates[0][0].filename == 'test.html'
+        assert templates[0][1]['name'] == 'Rudolf'
