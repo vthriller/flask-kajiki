@@ -1,7 +1,6 @@
 from contextlib import contextmanager
 
 from flaskext.genshi import template_generated, render_template
-from flask import current_app
 
 
 @contextmanager
@@ -21,7 +20,6 @@ def test_signals_are_emitted(app, context):
     with app.test_request_context():
         """Signal is emitted when templates are generated"""
 
-        app = current_app._get_current_object()
         with captured_templates(app) as templates:
             render_template('test.html', context)
 

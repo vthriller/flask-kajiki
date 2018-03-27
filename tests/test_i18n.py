@@ -1,4 +1,3 @@
-from flask import current_app
 from genshi.filters import Translator
 from flaskext.genshi import render_template
 
@@ -8,7 +7,7 @@ def test_does_translations(app):
     with app.test_request_context():
         """Callback interface is able to inject Translator filter"""
 
-        genshi = current_app.extensions['genshi']
+        genshi = app.extensions['genshi']
         @genshi.template_parsed
         def callback(template):
             Translator(lambda s: s.upper()).setup(template)

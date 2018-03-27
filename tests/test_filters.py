@@ -1,5 +1,4 @@
 from genshi.filters import Transformer
-from flask import current_app
 from flaskext.genshi import render_template
 
 
@@ -8,7 +7,7 @@ def test_applies_method_filters(app):
     with app.test_request_context():
         """Method filters are applied for generated and rendered templates"""
 
-        genshi = current_app.extensions['genshi']
+        genshi = app.extensions['genshi']
         @genshi.filter('html')
         def prepend_title(template):
             return template | Transformer('head/title').prepend('Flask-Genshi - ')
