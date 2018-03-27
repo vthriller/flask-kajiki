@@ -4,28 +4,6 @@ Use with Other Extensions and Packages
 .. currentmodule:: flaskext.genshi
 
 
-Form Processing with flatland
------------------------------
-
-First, set up flatland with the callback interface::
-
-    from flatland.out.genshi import setup
-
-    @genshi.template_parsed
-    def callback(template):
-        setup(template)
-
-Don't forget the form namespace:
-
-.. code-block:: html+genshi
-
-    <html xmlns:form="http://ns.discorporate.us/flatland/genshi">
-      <input type="text" form:bind="form.username"/>
-    </html>
-
-.. versionadded:: 0.5
-
-
 Internationalization with Flask-Babel
 -------------------------------------
 

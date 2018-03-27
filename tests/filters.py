@@ -4,15 +4,8 @@ from attest import Assert
 from genshi.filters import Transformer
 from flask import current_app
 from flaskext.genshi import render_template
-from flatland.out.genshi import setup as flatland_setup
-from flatland import Form, String
 
 from tests.utils import flask_tests
-
-
-class TestForm(Form):
-
-    username = String
 
 
 filters = flask_tests()
@@ -46,23 +39,5 @@ def filters_per_render():
     expected = ('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" '
                 '"http://www.w3.org/TR/html4/strict.dtd">\n'
                 '<html><head><title>Hi! - Flask-Genshi</title></head></html>')
-
-    assert rendered == expected
-
-
-@filters.test
-def works_with_flatland():
-    """Filters can take the context and support flatland"""
-
-    genshi = current_app.extensions['genshi']
-    @genshi.template_parsed
-    def callback(template):
-        flatland_setup(template)
-
-    context = dict(form=TestForm({'username': 'dag'}))
-    rendered = Assert(render_template('flatland.html', context))
-    expected = ('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" '
-                '"http://www.w3.org/TR/html4/strict.dtd">\n'
-                '<input type="text" name="username" value="dag">')
 
     assert rendered == expected

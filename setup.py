@@ -22,7 +22,7 @@ setup(
     platforms='any',
     test_loader='attest:Loader',
     test_suite='tests.all',
-    tests_require=['attest>=0.2', 'flatland', 'blinker'],
+    tests_require=['attest>=0.2', 'blinker'],
     install_requires=[
         'Flask',
         'Genshi>=0.5'

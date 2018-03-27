@@ -9,8 +9,7 @@ use `Genshi`_ for templating.
 Features:
 
 * Integrates fully with Flask and works with Flask-Babel for
-  internationalization and flatland for form processing (that is, the
-  special support flatland has for Genshi). Other extensions such as
+  internationalization. Other extensions such as
   Flask-WTF and Flask-Creole should work fine too.
 * Selects configurable rendering methods from the template filename, taking
   care of the mimetype, doctype and XML serialization, i.e., how to close
