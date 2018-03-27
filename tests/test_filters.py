@@ -1,5 +1,3 @@
-from __future__ import with_statement
-
 from genshi.filters import Transformer
 from flask import current_app
 from flaskext.genshi import render_template

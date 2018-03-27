@@ -1,5 +1,3 @@
-from __future__ import with_statement
-
 import pytest
 from flaskext.genshi import render_response
 
