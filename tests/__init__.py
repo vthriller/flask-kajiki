@@ -1,4 +1,6 @@
-from attest import Tests
+from attest import Tests, AssertImportHook
+
+AssertImportHook.disable()
 
 all = Tests(['tests.rendering.rendering',
              'tests.filters.filters',
