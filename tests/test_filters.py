@@ -4,8 +4,8 @@ from flaskext.genshi import render_template
 
 
 def test_applies_method_filters(app):
+    """Method filters are applied for generated and rendered templates"""
     with app.test_request_context():
-        """Method filters are applied for generated and rendered templates"""
 
         genshi = app.extensions['genshi']
         @genshi.filter('html')
@@ -21,8 +21,8 @@ def test_applies_method_filters(app):
 
 
 def test_filters_per_render(app):
+    """Filters can be applied per rendering"""
     with app.test_request_context():
-        """Filters can be applied per rendering"""
 
         def prepend_title(template):
             return template | Transformer('head/title').append(' - Flask-Genshi')

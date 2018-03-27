@@ -3,8 +3,8 @@ from flaskext.genshi import render_response, render
 
 
 def test_renders_html(app, context):
+    """A html extension results in an HTML doctype and mimetype"""
     with app.test_request_context():
-        """A html extension results in an HTML doctype and mimetype"""
 
         rendered = render_response('test.html', context)
         expected_data = ('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" '
@@ -16,8 +16,8 @@ def test_renders_html(app, context):
 
 
 def test_renders_text(app, context):
+    """A txt extension results in no doctype and a text/plain mimetype"""
     with app.test_request_context():
-        """A txt extension results in no doctype and a text/plain mimetype"""
 
         rendered = render_response('test.txt', context)
 
@@ -26,8 +26,8 @@ def test_renders_text(app, context):
 
 
 def test_renders_xml(app, context):
+    """An xml extension results in no doctype and a application/xml mimetype"""
     with app.test_request_context():
-        """An xml extension results in no doctype and a application/xml mimetype"""
 
         rendered = render_response('test.xml', context)
         assert rendered.mimetype == 'application/xml'
@@ -39,11 +39,11 @@ def test_renders_xml(app, context):
 
 
 def test_renders_js(app, context):
-    with app.test_request_context():
-        """A js extension results in no doctype
-        and a application/javascript mimetype
+    """A js extension results in no doctype
+    and a application/javascript mimetype
 
-        """
+    """
+    with app.test_request_context():
 
         rendered = render_response('test.js', context)
 
@@ -52,8 +52,8 @@ def test_renders_js(app, context):
 
 
 def test_renders_css(app, context):
+    """A css extension results in no doctype and a text/css mimetype"""
     with app.test_request_context():
-        """A css extension results in no doctype and a text/css mimetype"""
 
         rendered = render_response('test.css', context)
 
@@ -62,8 +62,8 @@ def test_renders_css(app, context):
 
 
 def test_renders_svg(app, context):
+    """An svg extension results in an SVG doctype and mimetype"""
     with app.test_request_context():
-        """An svg extension results in an SVG doctype and mimetype"""
 
         rendered = render_response('test.svg', context)
         expected_data = ('<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" '

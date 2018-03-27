@@ -17,8 +17,8 @@ def captured_templates(app):
 
 
 def test_signals_are_emitted(app, context):
+    """Signal is emitted when templates are generated"""
     with app.test_request_context():
-        """Signal is emitted when templates are generated"""
 
         with captured_templates(app) as templates:
             render_template('test.html', context)

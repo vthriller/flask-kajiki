@@ -3,8 +3,8 @@ from flaskext.genshi import render_response
 
 
 def test_updates_context(app):
+    """Render calls update the template context with context processors"""
     with app.test_request_context():
-        """Render calls update the template context with context processors"""
 
         @app.context_processor
         def inject_rudolf():

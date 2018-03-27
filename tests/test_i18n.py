@@ -4,8 +4,8 @@ from flaskext.genshi import render_template
 
 
 def test_does_translations(app):
+    """Callback interface is able to inject Translator filter"""
     with app.test_request_context():
-        """Callback interface is able to inject Translator filter"""
 
         genshi = app.extensions['genshi']
         @genshi.template_parsed
