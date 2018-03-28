@@ -15,6 +15,7 @@ def test_provides_jinja_tests_and_filters(app):
                          '      hello world\n'
                          '  </span>\n'
                          '    Hello...\n'
+                         '    foo bar\n'
                          '</p>')
 
         assert rendered == expected_data

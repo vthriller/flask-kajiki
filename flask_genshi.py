@@ -11,7 +11,7 @@
 
 from __future__ import absolute_import
 
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 import os.path
 from warnings import warn
 from inspect import getargspec
@@ -29,6 +29,13 @@ else:
     from flask.signals import Namespace
     signals = Namespace()
     template_generated = signals.signal('template-generated')
+
+
+# there's more to Jinja context than just environment,
+# but apparently the only thing jinja filters currently care about is this,
+# hence this shim.
+# XXX this does not take custom jinja filters into account, although I don't expect Genshi-minded users of @jinja2.contextfilter any time soon.
+FakeJinjaContext = namedtuple('FakeJinjaContext', ('environment',))
 
 
 class Genshi(object):
@@ -224,6 +231,8 @@ def generate_template(template=None, context=None,
     for name, f in filters.items():
         if getattr(f, 'environmentfilter', False):
             filters[name] = (lambda f: lambda *args, **kw: f(current_app.jinja_env, *args, **kw))(f)
+        elif getattr(f, 'contextfilter', False):
+            filters[name] = (lambda f: lambda *args, **kw: f(FakeJinjaContext(current_app.jinja_env), *args, **kw))(f)
 
     context = context or {}
     for key, value in current_app.jinja_env.globals.items():
