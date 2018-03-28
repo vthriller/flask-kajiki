@@ -3,4 +3,5 @@
   <span class="${'odd' if isodd(0) else 'even'}">
       ${lower('Hello World')}
   </span>
+    ${filters.truncate('Hello World', 10, leeway=0)}
 </p>

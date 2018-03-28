@@ -220,12 +220,17 @@ def generate_template(template=None, context=None,
     method = genshi._method_for(template, method)
     class_ = genshi.methods[method].get('class', MarkupTemplate)
 
+    filters = current_app.jinja_env.filters.copy()
+    for name, f in filters.items():
+        if getattr(f, 'environmentfilter', False):
+            filters[name] = (lambda f: lambda *args, **kw: f(current_app.jinja_env, *args, **kw))(f)
+
     context = context or {}
     for key, value in current_app.jinja_env.globals.items():
         context.setdefault(key, value)
-    context.setdefault('filters', current_app.jinja_env.filters)
+    context.setdefault('filters', filters)
     context.setdefault('tests', current_app.jinja_env.tests)
-    for key, value in current_app.jinja_env.filters.items():
+    for key, value in filters.items():
         context.setdefault(key, value)
     for key, value in current_app.jinja_env.tests.items():
         context.setdefault('is%s' % key, value)
