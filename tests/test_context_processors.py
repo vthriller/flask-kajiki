@@ -12,9 +12,9 @@ def test_updates_context(app):
 
         rendered = render_response('context.html')
 
-        expected_data = ('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" '
-                         '"http://www.w3.org/TR/html4/strict.dtd">\n'
-                         '<pre>rudolf = The red-nosed reindeer</pre>')
+        expected_data = (b'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" '
+                         b'"http://www.w3.org/TR/html4/strict.dtd">\n'
+                         b'<pre>rudolf = The red-nosed reindeer</pre>')
 
         assert rendered.mimetype == 'text/html'
         assert rendered.data == expected_data
