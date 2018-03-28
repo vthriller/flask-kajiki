@@ -10,9 +10,9 @@ def test_provides_jinja_tests_and_filters(app):
         expected_data = ('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" '
                          '"http://www.w3.org/TR/html4/strict.dtd">\n'
                          '<p class="odd">\n'
-                         '    Hello ...\n'
+                         '    HELLO WORLD\n'
                          '  <span class="even">\n'
-                         '      Hello ...\n'
+                         '      hello world\n'
                          '  </span>\n'
                          '</p>')
 
