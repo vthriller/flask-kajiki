@@ -207,17 +207,6 @@ class Genshi(object):
         return method
 
 
-def select_method(template, method=None):
-    """Same as :meth:`Genshi._method_for`.
-
-    .. deprecated:: 0.4
-
-    """
-    warn('select_method to be dropped in future releases',
-         DeprecationWarning, stacklevel=2)
-    return current_app.extensions['genshi']._method_for(template, method)
-
-
 def generate_template(template=None, context=None,
                       method=None, string=None, filter=None):
     """Creates a Genshi template stream that you can
