@@ -175,13 +175,7 @@ class Genshi(object):
         """
         path = loader.directory(os.path.join(
                 self.app.root_path, self.app.template_folder))
-        module_paths = {}
-        modules = getattr(self.app, 'modules', {})
-        for name, module in modules.items():
-            module_path = os.path.join(module.root_path, 'templates')
-            if os.path.isdir(module_path):
-                module_paths[name] = loader.directory(module_path)
-        return TemplateLoader([path, loader.prefixed(**module_paths)],
+        return TemplateLoader(path,
                               auto_reload=self.app.debug,
                               callback=self.callback)
 
