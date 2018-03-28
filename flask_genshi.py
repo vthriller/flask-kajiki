@@ -11,7 +11,7 @@
 
 from __future__ import absolute_import
 
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 import os.path
 from warnings import warn
 from inspect import getargspec
@@ -32,10 +32,17 @@ else:
 
 
 # there's more to Jinja context than just environment,
-# but apparently the only thing jinja filters currently care about is this,
-# hence this shim.
+# but apparently the only thing jinja filters currently care about is this (and also whether autoescaping is on),
+# hence these shims.
 # XXX this does not take custom jinja filters into account, although I don't expect Genshi-minded users of @jinja2.contextfilter any time soon.
-FakeJinjaContext = namedtuple('FakeJinjaContext', ('environment',))
+class FakeJinjaContext:
+    def __init__(self, env):
+        self.environment = env
+class FakeJinjaEvalContext:
+    def __init__(self, env):
+        self.environment = env
+        # Flask set this one explicitly
+        self.autoescape = env.autoescape
 
 
 class Genshi(object):
@@ -233,6 +240,8 @@ def generate_template(template=None, context=None,
             filters[name] = (lambda f: lambda *args, **kw: f(current_app.jinja_env, *args, **kw))(f)
         elif getattr(f, 'contextfilter', False):
             filters[name] = (lambda f: lambda *args, **kw: f(FakeJinjaContext(current_app.jinja_env), *args, **kw))(f)
+        elif getattr(f, 'evalcontextfilter', False):
+            filters[name] = (lambda f: lambda *args, **kw: f(FakeJinjaEvalContext(current_app.jinja_env), *args, **kw))(f)
 
     context = context or {}
     for key, value in current_app.jinja_env.globals.items():
