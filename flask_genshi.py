@@ -56,9 +56,6 @@ class Genshi(object):
     .. versionchanged:: 0.4
         You can now initialize your application later with :meth:`init_app`.
 
-    .. deprecated:: 0.4
-        ``app.genshi_instance`` in favor of ``app.extensions['genshi']``.
-
     """
 
     def __init__(self, app=None):
@@ -153,7 +150,6 @@ class Genshi(object):
             app.extensions = {}
 
         app.extensions['genshi'] = self
-        app.genshi_instance = self
         self.app = app
 
     def template_parsed(self, callback):
