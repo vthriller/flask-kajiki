@@ -1,4 +1,4 @@
-from flaskext.genshi import render_response, render
+from flask_genshi import render_response, render
 
 
 

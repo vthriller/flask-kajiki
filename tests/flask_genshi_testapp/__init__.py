@@ -1,6 +1,6 @@
 
 from flask import Flask
-from flaskext.genshi import Genshi
+from flask_genshi import Genshi
 
 def create_app():
     app = Flask(__name__)
