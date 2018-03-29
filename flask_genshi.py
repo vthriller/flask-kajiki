@@ -205,7 +205,8 @@ def generate_template(template=None, context=None,
     current_app.update_template_context(context)
 
     if template is not None:
-        template = genshi.template_loader.load(template, cls=class_)
+        # TODO cls=class_
+        template = genshi.template_loader.load(template)
     elif string is not None:
         template = class_(string)
     else:
