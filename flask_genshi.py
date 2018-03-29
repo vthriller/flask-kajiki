@@ -125,11 +125,6 @@ class Genshi(object):
             }
         }
 
-        #: Filter functions to be applied to templates.
-        #:
-        #: .. versionadded:: 0.3
-        self.filters = defaultdict(list)
-
     def init_app(self, app):
         """Initialize a :class:`~flask.Flask` application
         for use with this extension. Useful for the factory pattern but
@@ -177,22 +172,6 @@ class Genshi(object):
                               #callback=self.callback,
                          )
 
-    def filter(self, *methods):
-        """Decorator that adds a function to apply filters
-        to templates by rendering method.
-
-        .. versionadded:: 0.3
-
-        .. versionchanged:: 0.5
-            Filters can now optionally take a second argument for the context.
-
-        """
-        def decorator(function):
-            for method in methods:
-                self.filters[method].append(function)
-            return function
-        return decorator
-
     def _method_for(self, template, method=None):
         """Selects a method from :attr:`Genshi.methods`
         based on the file extension of ``template``
@@ -206,7 +185,7 @@ class Genshi(object):
 
 
 def generate_template(template=None, context=None,
-                      method=None, string=None, filter=None):
+                      method=None, string=None):
     """Creates a Genshi template stream that you can
     run filters and transformations on.
 
@@ -248,27 +227,15 @@ def generate_template(template=None, context=None,
         template_generated.send(current_app._get_current_object(),
                                 template=template, context=context)
 
-    for func in genshi.filters[method]:
-        if len(getargspec(func)[0]) == 2:  # Filter takes context?
-            stream = func(stream, context)
-        else:
-            stream = func(stream)
-
-    if filter:
-        if len(getargspec(filter)[0]) == 2:  # Filter takes context?
-            stream = filter(stream, context)
-        else:
-            stream = filter(stream)
-
     return stream
 
 
 def render_template(template=None, context=None,
-                    method=None, string=None, filter=None):
+                    method=None, string=None):
     """Renders a template to a string."""
     genshi = current_app.extensions['genshi']
     method = genshi._method_for(template, method)
-    template = generate_template(template, context, method, string, filter)
+    template = generate_template(template, context, method, string)
     render_args = dict(method=genshi.methods[method]['serializer'])
     if 'doctype' in genshi.methods[method]:
         render_args['doctype'] = genshi.methods[method]['doctype']
@@ -276,7 +243,7 @@ def render_template(template=None, context=None,
 
 
 def render_response(template=None, context=None,
-                    method=None, string=None, filter=None):
+                    method=None, string=None):
     """Renders a template and wraps it in a :attr:`~flask.Flask.response_class`
     with mimetype set according to the rendering method.
 
@@ -284,7 +251,7 @@ def render_response(template=None, context=None,
     genshi = current_app.extensions['genshi']
     method = genshi._method_for(template, method)
     mimetype = genshi.methods[method].get('mimetype', 'text/html')
-    template = render_template(template, context, method, string, filter)
+    template = render_template(template, context, method, string)
     return current_app.response_class(template, mimetype=mimetype)
 
 
