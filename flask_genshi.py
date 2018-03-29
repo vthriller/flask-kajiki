@@ -221,10 +221,12 @@ def render_template(template=None, context=None,
     genshi = current_app.extensions['genshi']
     method = genshi._method_for(template, method)
     template = generate_template(template, context, method, string)
-    render_args = dict(method=genshi.methods[method]['serializer'])
-    if 'doctype' in genshi.methods[method]:
-        render_args['doctype'] = genshi.methods[method]['doctype']
-    return template.render(**render_args)
+    # TODO kajiki has no arguments for the serializer
+    #render_args = dict(method=genshi.methods[method]['serializer'])
+    #if 'doctype' in genshi.methods[method]:
+    #    render_args['doctype'] = genshi.methods[method]['doctype']
+    #return template.render(**render_args)
+    return template.render()
 
 
 def render_response(template=None, context=None,
