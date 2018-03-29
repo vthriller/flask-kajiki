@@ -20,15 +20,6 @@ from kajiki import TextTemplate, XMLTemplate, FileLoader
 from werkzeug import cached_property
 from flask import current_app
 
-try:
-    from flask import signals_available
-except ImportError:
-    signals_available = False
-else:
-    from flask.signals import Namespace
-    signals = Namespace()
-    template_generated = signals.signal('template-generated')
-
 
 # there's more to Jinja context than just environment,
 # but apparently the only thing jinja filters currently care about is this (and also whether autoescaping is on),
@@ -221,10 +212,6 @@ def generate_template(template=None, context=None,
         raise RuntimeError('Need a template or string')
 
     stream = template.generate(**context)
-
-    if signals_available:
-        template_generated.send(current_app._get_current_object(),
-                                template=template, context=context)
 
     return stream
 
