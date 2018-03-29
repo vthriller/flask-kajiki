@@ -172,8 +172,10 @@ class Genshi(object):
         path = loader.directory(os.path.join(
                 self.app.root_path, self.app.template_folder))
         return FileLoader(path,
-                              auto_reload=self.app.debug,
-                              callback=self.callback)
+                              # TODO
+                              #auto_reload=self.app.debug,
+                              #callback=self.callback,
+                         )
 
     def filter(self, *methods):
         """Decorator that adds a function to apply filters
