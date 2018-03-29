@@ -17,7 +17,7 @@ from warnings import warn
 from inspect import getargspec
 
 from kajiki import (TextTemplate, XMLTemplate,
-                             loader, TemplateLoader)
+                             loader, FileLoader)
 from werkzeug import cached_property
 from flask import current_app
 
@@ -171,7 +171,7 @@ class Genshi(object):
         """
         path = loader.directory(os.path.join(
                 self.app.root_path, self.app.template_folder))
-        return TemplateLoader(path,
+        return FileLoader(path,
                               auto_reload=self.app.debug,
                               callback=self.callback)
 
