@@ -212,9 +212,7 @@ def generate_template(template=None, context=None,
     else:
         raise RuntimeError('Need a template or string')
 
-    stream = template.generate(**context)
-
-    return stream
+    return template(context)
 
 
 def render_template(template=None, context=None,
