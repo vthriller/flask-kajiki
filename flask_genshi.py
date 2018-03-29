@@ -16,7 +16,7 @@ import os.path
 from warnings import warn
 from inspect import getargspec
 
-from kajiki import (NewTextTemplate, MarkupTemplate,
+from kajiki import (TextTemplate, XMLTemplate,
                              loader, TemplateLoader)
 from werkzeug import cached_property
 from flask import current_app
@@ -106,17 +106,17 @@ class Genshi(object):
             'text': {
                 'serializer': 'text',
                 'mimetype': 'text/plain',
-                'class': NewTextTemplate
+                'class': TextTemplate
             },
             'js': {
                 'serializer': 'text',
                 'mimetype': 'application/javascript',
-                'class': NewTextTemplate
+                'class': TextTemplate
             },
             'css': {
                 'serializer': 'text',
                 'mimetype': 'text/css',
-                'class': NewTextTemplate
+                'class': TextTemplate
             },
             'svg': {
                 'serializer': 'xml',
@@ -211,7 +211,7 @@ def generate_template(template=None, context=None,
     """
     genshi = current_app.extensions['genshi']
     method = genshi._method_for(template, method)
-    class_ = genshi.methods[method].get('class', MarkupTemplate)
+    class_ = genshi.methods[method].get('class', XMLTemplate)
 
     filters = current_app.jinja_env.filters.copy()
     for name, f in filters.items():
