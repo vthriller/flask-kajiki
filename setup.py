@@ -20,7 +20,7 @@ setup(
     platforms='any',
     install_requires=[
         'Flask',
-        'Genshi>=0.5'
+        'Kajiki>=0.7'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',

@@ -16,7 +16,7 @@ import os.path
 from warnings import warn
 from inspect import getargspec
 
-from genshi.template import (NewTextTemplate, MarkupTemplate,
+from kajiki import (NewTextTemplate, MarkupTemplate,
                              loader, TemplateLoader)
 from werkzeug import cached_property
 from flask import current_app
