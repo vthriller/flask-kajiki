@@ -1,16 +1,14 @@
-from genshi.filters import Translator
+from kajiki import i18n
 from flask_genshi import render_template
 
+
+# TODO (document) request-aware i18ning?
+i18n.gettext = lambda s: s.upper()
 
 
 def test_does_translations(app):
     """Callback interface is able to inject Translator filter"""
     with app.test_request_context():
-
-        genshi = app.extensions['genshi']
-        @genshi.template_parsed
-        def callback(template):
-            Translator(lambda s: s.upper()).setup(template)
 
         rendered = render_template('i18n.html')
         expected = ('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" '
