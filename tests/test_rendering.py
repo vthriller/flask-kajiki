@@ -1,4 +1,4 @@
-from flask_genshi import render_response, render
+from flask_kajiki import render_response, render
 
 
 

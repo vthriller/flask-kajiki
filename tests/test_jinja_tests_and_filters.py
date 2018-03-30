@@ -1,4 +1,4 @@
-from flask_genshi import render_template
+from flask_kajiki import render_template
 
 
 

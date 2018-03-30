@@ -1,6 +1,6 @@
 from kajiki import i18n
 from flask import request
-from flask_genshi import render_template
+from flask_kajiki import render_template
 
 
 # N. B. settting i18n.gettext would affect tests from all modules,

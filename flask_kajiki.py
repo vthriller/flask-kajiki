@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    flask_genshi
+    flask_kajiki
     ~~~~~~~~~~~~
 
     An extension to Flask for easy Genshi templating.
