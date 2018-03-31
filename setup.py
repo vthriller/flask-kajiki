@@ -7,13 +7,13 @@ with open('README.rst') as file:
 
 
 setup(
-    name='Flask-Genshi',
+    name='Flask-Kajiki',
     version='0.5.1',
-    url='http://packages.python.org/Flask-Genshi',
+    url='http://packages.python.org/Flask-Kajiki',
     license='BSD',
     author='Dag Odenhall',
     author_email='dag.odenhall@gmail.com',
-    description='An extension to Flask for easy Genshi templating.',
+    description='An extension to Flask for easy Kajiki templating.',
     long_description=readme,
     py_modules=['flask_kajiki'],
     zip_safe=False,

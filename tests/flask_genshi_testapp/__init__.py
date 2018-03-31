@@ -1,10 +1,10 @@
 
 from flask import Flask
-from flask_kajiki import Genshi
+from flask_kajiki import Kajiki
 
 def create_app():
     app = Flask(__name__)
 
-    genshi = Genshi(app)
+    kajiki = Kajiki(app)
 
     return app
