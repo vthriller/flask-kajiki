@@ -1,5 +1,5 @@
 import pytest
-from .flask_genshi_testapp import create_app
+from .flask_kajiki_testapp import create_app
 
 @pytest.fixture
 def app(request):
