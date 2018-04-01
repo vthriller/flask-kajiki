@@ -12,12 +12,14 @@
 
 import os
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash
-
+from flask import Flask, request, session, g, redirect, url_for, abort, flash
+from flask_kajiki import Kajiki, render_template
 
 # create our little application :)
 app = Flask(__name__)
+
+kajiki = Kajiki(app)
+kajiki.extensions['html'] = 'html5'
 
 # Load default config and override config from an environment variable
 app.config.update(dict(
@@ -73,7 +75,7 @@ def show_entries():
     db = get_db()
     cur = db.execute('select title, text from entries order by id desc')
     entries = cur.fetchall()
-    return render_template('show_entries.html', entries=entries)
+    return render_template('show_entries.html', dict(entries=entries))
 
 
 @app.route('/add', methods=['POST'])
@@ -100,7 +102,7 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('show_entries'))
-    return render_template('login.html', error=error)
+    return render_template('login.html', dict(error=error))
 
 
 @app.route('/logout')
